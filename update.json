@@ -5,6 +5,6 @@
     "1.16.3-recommended": "2.0.0"
   },
   "1.16.3": {
-    "2.0.0": "Mod no longer adds silk touch to items on crafting, and they harvest all glass without silk touch.  Still uses tags minecraft:glass and minecraft:glass_panes as before.  Port to 1.16.3 and latest forge RB "
+    "2.0.0": "Mod no longer adds silk touch to items on crafting, and they harvest all glass without silk touch (Still uses tags minecraft:glass and minecraft:glass_panes as before to support modded glass).  The basic recipe uses iron instead of quartz now.  Port to 1.16.3 and latest forge RB "
   }
 }

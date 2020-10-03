@@ -7,7 +7,7 @@
   ],
   "key": {
     "h": {
-      "item": "minecraft:quartz"
+      "tag": "forge:ingots/iron"
     },
     "s": {
       "item": "minecraft:stick"
