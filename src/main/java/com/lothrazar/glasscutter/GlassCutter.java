@@ -1,9 +1,8 @@
 package com.lothrazar.glasscutter;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +23,7 @@ public class GlassCutter extends Item {
         p.sendBreakAnimation(EquipmentSlotType.MAINHAND);
       });
     }
+    worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock())));
     return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
   }
 
@@ -37,10 +37,5 @@ public class GlassCutter extends Item {
   public float getDestroySpeed(ItemStack stack, BlockState state) {
     return state.getBlock().isIn(Tags.Blocks.GLASS)
         || state.getBlock().isIn(Tags.Blocks.GLASS_PANES) ? 15.0F : super.getDestroySpeed(stack, state);
-  }
-
-  @Override
-  public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
-    stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
   }
 }
