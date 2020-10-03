@@ -29,13 +29,17 @@ public class GlassCutter extends Item {
 
   @Override
   public boolean canHarvestBlock(BlockState blockIn) {
-    return blockIn.isIn(Tags.Blocks.GLASS)
-        || blockIn.isIn(Tags.Blocks.GLASS_PANES);
+    return isGlass(blockIn);
   }
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
     return state.getBlock().isIn(Tags.Blocks.GLASS)
         || state.getBlock().isIn(Tags.Blocks.GLASS_PANES) ? 15.0F : super.getDestroySpeed(stack, state);
+  }
+
+  public static boolean isGlass(BlockState blockIn) {
+    return blockIn.isIn(Tags.Blocks.GLASS)
+        || blockIn.isIn(Tags.Blocks.GLASS_PANES);
   }
 }
