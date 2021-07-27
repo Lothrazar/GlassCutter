@@ -1,14 +1,16 @@
 package com.lothrazar.glasscutter;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class GlassCutter extends Item {
 
@@ -17,29 +19,31 @@ public class GlassCutter extends Item {
   }
 
   @Override
-  public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    if (!worldIn.isRemote) {
-      stack.damageItem(1, entityLiving, (p) -> {
-        p.sendBreakAnimation(EquipmentSlotType.MAINHAND);
+  public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    if (!worldIn.isClientSide) {
+      stack.hurtAndBreak(1, entityLiving, (p) -> {
+        p.broadcastBreakEvent(EquipmentSlot.MAINHAND);
       });
     }
-    worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock())));
-    return super.onBlockDestroyed(stack, worldIn, state, pos, entityLiving);
+    if(isGlass(state)) {
+      worldIn.addFreshEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock())));
+    }
+    return super.mineBlock(stack, worldIn, state, pos, entityLiving);
   }
 
   @Override
-  public boolean canHarvestBlock(BlockState blockIn) {
+  public boolean isCorrectToolForDrops(BlockState blockIn) {
     return isGlass(blockIn);
   }
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
-    return state.getBlock().isIn(Tags.Blocks.GLASS)
-        || state.getBlock().isIn(Tags.Blocks.GLASS_PANES) ? 15.0F : super.getDestroySpeed(stack, state);
+    return state.is(Tags.Blocks.GLASS)
+        || state.is(Tags.Blocks.GLASS_PANES) ? 15.0F : super.getDestroySpeed(stack, state);
   }
 
   public static boolean isGlass(BlockState blockIn) {
-    return blockIn.isIn(Tags.Blocks.GLASS)
-        || blockIn.isIn(Tags.Blocks.GLASS_PANES);
+    return blockIn.is(Tags.Blocks.GLASS)
+        || blockIn.is(Tags.Blocks.GLASS_PANES);
   }
 }

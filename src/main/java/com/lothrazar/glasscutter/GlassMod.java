@@ -1,7 +1,7 @@
 package com.lothrazar.glasscutter;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,13 +19,13 @@ public class GlassMod {
 
     @SubscribeEvent
     public static void onItemsRegistry(RegistryEvent.Register<Item> event) {
-      Item.Properties properties = new Item.Properties().group(ItemGroup.TOOLS);// tab group
+      Item.Properties properties = new Item.Properties().tab(CreativeModeTab.TAB_TOOLS);// tab group
       IForgeRegistry<Item> r = event.getRegistry();
       //normal is same durability as shears
-      r.register(new GlassCutter(properties.maxStackSize(1).maxDamage(238)).setRegistryName(MODID));
-      properties = new Item.Properties().group(ItemGroup.TOOLS);// tab group
+      r.register(new GlassCutter(properties.stacksTo(1).durability(238)).setRegistryName(MODID));
+      properties = new Item.Properties().tab(CreativeModeTab.TAB_TOOLS);// tab group
       //same damage as diamond pickaxe
-      r.register(new GlassCutter(properties.maxStackSize(1).maxDamage(1561)).setRegistryName("glasscutter_strong"));
+      r.register(new GlassCutter(properties.stacksTo(1).durability(1561)).setRegistryName("glasscutter_strong"));
     }
   }
 }

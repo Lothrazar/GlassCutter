@@ -1,11 +1,10 @@
 {
   "homepage": "https://www.curseforge.com/minecraft/mc-mods/glass-cutter",
   "promos": {
-    "1.16.4-latest": "2.0.1",
-    "1.16.4-recommended": "2.0.1"
+    "1.17.1-latest": "2.0.1",
+    "1.17.1-recommended": "2.0.1"
   },
-  "1.16.4": {
-    "2.0.0": "Mod no longer adds silk touch to items on crafting, and they harvest all glass without silk touch (Still uses tags minecraft:glass and minecraft:glass_panes as before to support modded glass).  The basic recipe uses iron instead of quartz now.  Port to 1.16.3 and latest forge RB "
-  	,"2.0.1":"pt_br language translation added by Mikeliro"
+  "1.17.1": {
+    "2.0.1":"Ported"
   }
 }
