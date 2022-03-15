@@ -1,8 +1,6 @@
 buildscript {
     repositories {
-	maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
+		maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
     }
     dependencies {
@@ -13,11 +11,9 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle' 
 
 import net.minecraftforge.gradle.common.tasks.SignJar
-import groovy.json.JsonSlurper
-import groovy.json.JsonOutput
+
 
 version = "${mc_version}-${mod_version}"
 group = 'com.lothrazar.glasscutter' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
@@ -27,7 +23,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
 
-mappings channel: 'official', version: '1.18' 
+mappings channel: 'official', version: '1.18.2' 
 
     //makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
     
@@ -68,23 +64,23 @@ mappings channel: 'official', version: '1.18'
             }
         }
 
-        data {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            args '--mod', 'glasscutter', '--all', '--output', file('src/generated/resources/')
-
-            mods {
-                glasscutter {
-                    source sourceSets.main
-                }
-            }
-        }
+//        data {
+//            workingDirectory project.file('run')
+//
+//            // Recommended logging data for a userdev environment
+//            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+//
+//            // Recommended logging level for the console
+//            property 'forge.logging.console.level', 'debug'
+//
+//            args '--mod', 'glasscutter', '--all', '--output', file('src/generated/resources/')
+//
+//            mods {
+//                glasscutter {
+//                    source sourceSets.main
+//                }
+//            }
+//        }
     }
 }
 
@@ -95,7 +91,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
 
-    // fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    //implementation fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
    // compile fg.deobf("top.theillusivec4.curios:curios:FORGE-${mc_version}-${curios_version}")
     
     // You may put jars on which you depend on in ./libs or you may define them like so..
@@ -146,6 +142,11 @@ jar {
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
 // Example configuration to allow publishing using the maven-publish task
