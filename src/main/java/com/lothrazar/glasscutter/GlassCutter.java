@@ -1,16 +1,14 @@
 package com.lothrazar.glasscutter;
 
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class GlassCutter extends Item {
 
@@ -25,7 +23,7 @@ public class GlassCutter extends Item {
         p.broadcastBreakEvent(EquipmentSlot.MAINHAND);
       });
     }
-    if(isGlass(state)) {
+    if (isGlass(state)) {
       worldIn.addFreshEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock())));
     }
     return super.mineBlock(stack, worldIn, state, pos, entityLiving);
