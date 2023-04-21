@@ -1,16 +1,16 @@
 package com.lothrazar.glasscutter;
 
+import com.lothrazar.library.item.ItemFlib;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 
-public class GlassCutter extends Item {
+public class GlassCutter extends ItemFlib {
 
   public GlassCutter(Properties properties) {
     super(properties);
@@ -36,12 +36,10 @@ public class GlassCutter extends Item {
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
-    return state.is(Tags.Blocks.GLASS)
-        || state.is(Tags.Blocks.GLASS_PANES) ? 15.0F : super.getDestroySpeed(stack, state);
+    return isGlass(state) ? 15.0F : super.getDestroySpeed(stack, state);
   }
 
   public static boolean isGlass(BlockState blockIn) {
-    return blockIn.is(Tags.Blocks.GLASS)
-        || blockIn.is(Tags.Blocks.GLASS_PANES);
+    return blockIn.is(Tags.Blocks.GLASS) || blockIn.is(Tags.Blocks.GLASS_PANES);
   }
 }
