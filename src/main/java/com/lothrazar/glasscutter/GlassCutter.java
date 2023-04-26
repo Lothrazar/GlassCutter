@@ -1,14 +1,14 @@
 package com.lothrazar.glasscutter;
 
 import com.lothrazar.library.item.ItemFlib;
+import com.lothrazar.library.util.BlockstatesUtil;
+import com.lothrazar.library.util.LevelWorldUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
 
 public class GlassCutter extends ItemFlib {
 
@@ -23,23 +23,19 @@ public class GlassCutter extends ItemFlib {
         p.broadcastBreakEvent(EquipmentSlot.MAINHAND);
       });
     }
-    if (isGlass(state)) {
-      worldIn.addFreshEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(state.getBlock())));
+    if (BlockstatesUtil.isGlass(state)) {
+      LevelWorldUtil.dropItemStackInWorld(worldIn, pos, new ItemStack(state.getBlock()));
     }
     return super.mineBlock(stack, worldIn, state, pos, entityLiving);
   }
 
   @Override
   public boolean isCorrectToolForDrops(BlockState blockIn) {
-    return isGlass(blockIn);
+    return BlockstatesUtil.isGlass(blockIn);
   }
 
   @Override
   public float getDestroySpeed(ItemStack stack, BlockState state) {
-    return isGlass(state) ? 15.0F : super.getDestroySpeed(stack, state);
-  }
-
-  public static boolean isGlass(BlockState blockIn) {
-    return blockIn.is(Tags.Blocks.GLASS) || blockIn.is(Tags.Blocks.GLASS_PANES);
+    return BlockstatesUtil.isGlass(state) ? 15.0F : super.getDestroySpeed(stack, state);
   }
 }
