@@ -19,9 +19,7 @@ public class GlassCutter extends ItemFlib {
   @Override
   public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     if (!worldIn.isClientSide) {
-      stack.hurtAndBreak(1, entityLiving, (p) -> {
-        p.broadcastBreakEvent(EquipmentSlot.MAINHAND);
-      });
+      stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
     }
     if (BlockstatesUtil.isGlass(state)) {
       LevelWorldUtil.dropItemStackInWorld(worldIn, pos, new ItemStack(state.getBlock()));
@@ -30,7 +28,7 @@ public class GlassCutter extends ItemFlib {
   }
 
   @Override
-  public boolean isCorrectToolForDrops(BlockState blockIn) {
+  public boolean isCorrectToolForDrops(ItemStack stack, BlockState blockIn) {
     return BlockstatesUtil.isGlass(blockIn);
   }
 

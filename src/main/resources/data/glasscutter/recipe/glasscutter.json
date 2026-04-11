@@ -7,14 +7,14 @@
   ],
   "key": {
     "h": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "s": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "glasscutter:glasscutter",
+    "id": "glasscutter:glasscutter",
     "count": 1
   }
 }
