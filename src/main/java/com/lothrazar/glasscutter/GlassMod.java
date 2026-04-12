@@ -11,5 +11,6 @@ public class GlassMod {
   public GlassMod(IEventBus bus) {
     GlassModRegistry.ITEMS.register(bus);
     GlassModRegistry.CREATIVE_TABS.register(bus);
+    GlassModRegistry.GLM.register(bus);
   }
 }
