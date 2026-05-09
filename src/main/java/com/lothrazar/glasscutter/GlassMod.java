@@ -1,16 +1,16 @@
 package com.lothrazar.glasscutter;
 
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
 
 @Mod(GlassMod.MODID)
 public class GlassMod {
 
   public static final String MODID = "glasscutter";
 
-  public GlassMod() {
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+  public GlassMod(IEventBus bus) {
     GlassModRegistry.ITEMS.register(bus);
+    GlassModRegistry.CREATIVE_TABS.register(bus);
+    GlassModRegistry.GLM.register(bus);
   }
 }
