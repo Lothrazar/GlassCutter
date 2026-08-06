@@ -5,7 +5,9 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -18,8 +20,8 @@ public class GlassGlobalDropModifier extends LootModifier {
   public static final MapCodec<GlassGlobalDropModifier> CODEC = RecordCodecBuilder.mapCodec(
       inst -> codecStart(inst).apply(inst, GlassGlobalDropModifier::new));
 
-  public GlassGlobalDropModifier(LootItemCondition[] conditions) {
-    super(conditions);
+  public GlassGlobalDropModifier(LootItemCondition[] conditions, int priority) {
+    super(conditions, priority);
   }
 
   @Override
@@ -29,15 +31,15 @@ public class GlassGlobalDropModifier extends LootModifier {
 
   @Override
   protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> lootItems, LootContext ctx) {
-    BlockState state = ctx.getParamOrNull(LootContextParams.BLOCK_STATE);
+    BlockState state = ctx.getOptionalParameter(LootContextParams.BLOCK_STATE);
 
     //util is based on GLASS_PANES and GLASS_BLOCKS data tags
     if (state == null || !BlockstatesUtil.isGlass(state)) {return lootItems;}
 
-    ItemStack tool = ctx.getParamOrNull(LootContextParams.TOOL);
-    if (tool == null || tool.isEmpty()) {return lootItems;}
+    ItemInstance tool = ctx.getOptionalParameter(LootContextParams.TOOL);
+    if (tool == null || tool.is(Items.AIR)) {return lootItems;}
 
-    Item toolItem = tool.getItem();
+    Item toolItem = tool.typeHolder().value();
     if (toolItem != GlassModRegistry.GLASSCUTTER.get() && toolItem != GlassModRegistry.GLASSCUTTER_STRONG.get()) {
       return lootItems;
     }

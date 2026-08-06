@@ -17,7 +17,7 @@ public class GlassCutterItem extends ItemFlib {
 
   @Override
   public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    if (!worldIn.isClientSide) {
+    if (!worldIn.isClientSide()) {
       stack.hurtAndBreak(1, entityLiving, EquipmentSlot.MAINHAND);
     }
     return super.mineBlock(stack, worldIn, state, pos, entityLiving);
