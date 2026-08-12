@@ -6,15 +6,9 @@
     "s  "
   ],
   "key": {
-    "h": {
-      "item": "minecraft:quartz_block"
-    },
-    "o": {
-      "item": "minecraft:obsidian"
-    },
-    "s": {
-      "item": "minecraft:stick"
-    }
+    "h": "minecraft:quartz_block",
+    "o": "minecraft:obsidian",
+    "s": "minecraft:stick"
   },
   "result": {
     "id": "glasscutter:glasscutter_strong",

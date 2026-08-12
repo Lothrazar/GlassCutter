@@ -6,12 +6,8 @@
     "s  "
   ],
   "key": {
-    "h": {
-      "tag": "c:ingots/iron"
-    },
-    "s": {
-      "item": "minecraft:stick"
-    }
+    "h": "#c:ingots/iron",
+    "s": "minecraft:stick"
   },
   "result": {
     "id": "glasscutter:glasscutter",

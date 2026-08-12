@@ -13,12 +13,12 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 public class GlassModRegistry {
 
-  public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, GlassMod.MODID);
+  public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(GlassMod.MODID);
   public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, GlassMod.MODID);
   public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLM = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, GlassMod.MODID);
 
-  public static final DeferredHolder<Item, GlassCutterItem> GLASSCUTTER = ITEMS.register("glasscutter", () -> new GlassCutterItem(new Item.Properties().stacksTo(1).durability(238)));
-  public static final DeferredHolder<Item, GlassCutterItem> GLASSCUTTER_STRONG = ITEMS.register("glasscutter_strong", () -> new GlassCutterItem(new Item.Properties().stacksTo(1).durability(1561)));
+  public static final DeferredHolder<Item, GlassCutterItem> GLASSCUTTER = ITEMS.registerItem("glasscutter", props -> new GlassCutterItem(props.stacksTo(1).durability(238)));
+  public static final DeferredHolder<Item, GlassCutterItem> GLASSCUTTER_STRONG = ITEMS.registerItem("glasscutter_strong", props -> new GlassCutterItem(props.stacksTo(1).durability(1561)));
 
   public static final DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<GlassGlobalDropModifier>> GLASS_DROP = GLM.register("glass_drop", () -> GlassGlobalDropModifier.CODEC);
 
